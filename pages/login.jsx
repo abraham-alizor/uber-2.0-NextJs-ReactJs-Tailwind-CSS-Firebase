@@ -20,12 +20,10 @@ const Login = () => {
 			<UberLogo src='https://i.ibb.co/ZMhy8ws/uber-logo.png' />
 			<Title>Log in To Access Your Account</Title>
 			<LoginImage src='https://i.ibb.co/CsV9RYZ/login-image.png' />
-			<Link href=''>
-				<Button onClick={() => signInWithPopup(auth, provider)} type='submit'>
-					{' '}
-					Signin with Google{' '}
-				</Button>
-			</Link>
+
+			<Button onClick={() => signInWithPopup(auth, provider)} type='submit'>
+				Signin with Google{' '}
+			</Button>
 		</Wrapper>
 	);
 };
