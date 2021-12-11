@@ -1,4 +1,6 @@
+import { signOut } from 'firebase/auth';
 import tw from 'tailwind-styled-components';
+import { auth } from '../firebase';
 
 export default function HeaderComponent({ displayName, photo }) {
 	return (
@@ -8,7 +10,13 @@ export default function HeaderComponent({ displayName, photo }) {
 
 				<Profile>
 					<Name>Hi, {displayName}</Name>
-					<ProfileImg src={photo} alt='profile' />
+					<ProfileImg
+						src={photo}
+						alt='profile'
+						onClick={() => {
+							signOut(auth);
+						}}
+					/>
 				</Profile>
 			</Header>
 		</>
@@ -27,7 +35,7 @@ const Profile = tw.div`
 h-28 flex flex-row justify-center items-center py-8 px-4
 `;
 const ProfileImg = tw.img`
-h-12 rounded-full w-12 border-gray-200 p-px
+h-12 rounded-full w-12 border-gray-200 p-px cursor-pointer
 `;
 const Name = tw.p`
 mr-2 text-sm 
