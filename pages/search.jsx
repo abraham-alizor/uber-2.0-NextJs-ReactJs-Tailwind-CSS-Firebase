@@ -1,48 +1,96 @@
 import { useState } from 'react';
 import tw from 'tailwind-styled-components';
 import Link from 'next/link';
+import { Formik } from 'formik';
+
+import * as Yup from 'yup';
 
 const Search = () => {
 	const [pickup, setPickup] = useState('');
 	const [dropoff, setDropoff] = useState('');
+
 	return (
 		<>
-			<Wrapper>
-				<HeaderIconContainer>
-					<Link href='/'>
-						<BackButton src='https://img.icons8.com/ios-filled/50/000000/left.png' alt='btn icon' />
-					</Link>
-				</HeaderIconContainer>
-				<InputContainer>
-					<FromToIcon>
-						<Circle src='https://img.icons8.com/ios-filled/50/9CA3AF/filled-circle.png' />
-						<Line src='https://img.icons8.com/ios/50/9CA3AF/vertical-line.png' />
-						<Square src='https://www.svgrepo.com/show/79897/black-square.svg' />
-					</FromToIcon>
-					<InputBoxes>
-						<InputElement
-							placeholder='Enter pickup location'
-							value={pickup}
-							onChange={(e) => setPickup(e.target.value)}
-						/>
-						<InputElement
-							placeholder='where to?'
-							value={dropoff}
-							onChange={(e) => setDropoff(e.target.value)}
-						/>
-					</InputBoxes>
-					<PlusIcon src='https://img.icons8.com/ios/50/000000/plus-math.png' />
-				</InputContainer>
-				<SavedPlaces>
-					<StarIcon src='https://img.icons8.com/ios-filled/50/ffffff/star--v1.png' />
-					Saved places
-				</SavedPlaces>
-				<ButtonContainer>
-					<Link href={{ pathname: '/confirm', query: { dropoff: dropoff, pickup: pickup } }}>
-						<ButtonElement type='submit'> Confirm Ride </ButtonElement>
-					</Link>
-				</ButtonContainer>
-			</Wrapper>
+			<Formik
+				initialValues={{ pickup: '', destination: '' }}
+				onSubmit={(values, { setSubmitting }) => {
+					setTimeout(() => {
+						console.log('Logging in', values);
+						setSubmitting(false);
+					}, 500);
+				}}
+				//********Using Yum for validation********/
+
+				validationSchema={Yup.object().shape({
+					pickup: Yup.string().required('A pickup location Required'),
+					dropoff: Yup.string().required('A destination location Required'),
+				})}
+			>
+				{(props) => {
+					const { touched, errors, isSubmitting, handleChange, handleBlur, handleSubmit } = props;
+					return (
+						<Wrapper>
+							<form>
+								<HeaderIconContainer>
+									<Link href='/'>
+										<BackButton
+											src='https://img.icons8.com/ios-filled/50/000000/left.png'
+											alt='btn icon'
+										/>
+									</Link>
+								</HeaderIconContainer>
+								<InputContainer>
+									<FromToIcon>
+										<Circle src='https://img.icons8.com/ios-filled/50/9CA3AF/filled-circle.png' />
+										<Line src='https://img.icons8.com/ios/50/9CA3AF/vertical-line.png' />
+										<Square src='https://www.svgrepo.com/show/79897/black-square.svg' />
+									</FromToIcon>
+									<InputBoxes>
+										<InputElement
+											name='pickup'
+											type='text'
+											placeholder='Enter pickup location'
+											value={pickup}
+											onChange={(e) => setPickup(e.target.value)}
+											onBlur={handleBlur}
+											className={`${errors.pickup && touched.pickup && 'error'}`}
+										/>
+										{/* pickup validation feedback */}
+										{errors.pickup && touched.pickup && (
+											<div className='input-feedback text-xs text-red-500'>{errors.pickup}</div>
+										)}
+										<InputElement
+											name='dropoff'
+											type='text'
+											placeholder='where to?'
+											value={dropoff}
+											onChange={(e) => setDropoff(e.target.value)}
+											onBlur={handleBlur}
+											className={`${errors.dropoff && touched.dropoff && 'error'}`}
+										/>
+										{/* pickup validation feedback */}
+										{errors.dropoff && touched.dropoff && (
+											<div className='input-feedback text-xs text-red-500'>{errors.dropoff}</div>
+										)}
+									</InputBoxes>
+									<PlusIcon src='https://img.icons8.com/ios/50/000000/plus-math.png' />
+								</InputContainer>
+								<SavedPlaces>
+									<StarIcon src='https://img.icons8.com/ios-filled/50/ffffff/star--v1.png' />
+									Saved places
+								</SavedPlaces>
+								<ButtonContainer>
+									<Link
+										href={{ pathname: '/confirm', query: { dropoff: dropoff, pickup: pickup } }}
+									>
+										<ButtonElement type='submit'> Confirm Ride </ButtonElement>
+									</Link>
+								</ButtonContainer>
+							</form>
+						</Wrapper>
+					);
+				}}
+			</Formik>
 		</>
 	);
 };
@@ -56,7 +104,7 @@ const HeaderIconContainer = tw.div`
 bg-white px-4
 `;
 
-const BackButton = tw.img`
+export const BackButton = tw.img`
 `;
 const InputContainer = tw.div`
 bg-white flex flex-row justify-between items-center px-4 mb-2

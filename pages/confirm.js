@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import tw from 'tailwind-styled-components';
 import Link from 'next/link';
 import Map from '../components/Map';
-import { Wrapper, ActionItems } from './index';
-import { ButtonContainer, ButtonElement } from './search';
+import { ActionItems } from './index';
+import { ButtonContainer, ButtonElement, BackButton } from './search';
 import { useRouter } from 'next/router';
 import RideSelector from '../components/RideSelector';
 
@@ -12,8 +12,8 @@ const confirm = () => {
 	const router = useRouter();
 	const { pickup, dropoff } = router.query;
 
-	const [pickupCoordinates, setPickupCoordinates] = useState();
-	const [dropoffCoordinates, setDropoffCoordinates] = useState();
+	const [pickupCoordinates, setPickupCoordinates] = useState([0, 0]);
+	const [dropoffCoordinates, setDropoffCoordinates] = useState([0, 0]);
 
 	const getPickupCoordinates = (pickup) => {
 		//
@@ -56,9 +56,18 @@ const confirm = () => {
 		<div>
 			<ConfirmWrapper>
 				<Map pickupCoordinates={pickupCoordinates} dropoffCoordinates={dropoffCoordinates} />
+				<Link href='/search'>
+					<BackButton
+						src='https://img.icons8.com/ios-filled/50/000000/left.png'
+						className='bg-white w-9 h-9 rounded-full z-50 absolute top-2 left-2 lg:top-9 lg:left-10'
+					/>
+				</Link>
 				<ActionItems className='h-2/5 lg:ml-8 lg:mt-8'>
 					<RideContainer>
-						<RideSelector />
+						<RideSelector
+							pickupCoordinates={pickupCoordinates}
+							dropoffCoordinates={dropoffCoordinates}
+						/>
 					</RideContainer>
 					<ButtonContainer className='py-4 border-t-2 border-gray-100'>
 						<Link href='#'>
