@@ -8,7 +8,6 @@
 		"start": "next start -p $PORT"
 	},
 	"dependencies": {
-		"axios": "^0.24.0",
 		"firebase": "^9.6.1",
 		"formik": "^2.2.9",
 		"mapbox-gl": "^2.6.1",

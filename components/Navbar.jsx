@@ -1,12 +1,10 @@
 import tw from 'tailwind-styled-components';
-import logo from './assets/logo.png';
-import Image from 'next/image';
 
 export default function Navbar({ displayName, photo }) {
 	return (
 		<>
 			<NavConatiner>
-				<Image src={logo} alt='logo' width={50} height={20} />
+				<NavLogo src='https://i.ibb.co/ZMhy8ws/uber-logo.png' alt='logo' width={50} height={20} />
 				<NavItem>
 					<NavItems>
 						<NavList>Ride</NavList>
@@ -28,7 +26,7 @@ md:flex justify-between  items-center w-full md:absolute top-0 md:z-30 bg-black 
 `;
 
 const NavLogo = tw.img`
-
+invert
 `;
 
 const NavItem = tw.div`

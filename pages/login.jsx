@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 import tw from 'tailwind-styled-components';
-import Link from 'next/link';
 import { provider, auth } from '../firebase';
 
 const Login = () => {
@@ -41,7 +40,7 @@ const Button = tw.button`
  px-8 w-full lg:w-2/5 py-2 mt-4 bg-black text-white self-center rounded-2 hover:scale-105 transition cursor-pointer
 `;
 
-const UberLogo = tw.img`
+export const UberLogo = tw.img`
 h-16 w-auto object-contain self-start
 `;
 const LoginImage = tw.img`
