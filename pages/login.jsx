@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 import tw from 'tailwind-styled-components';
 import { provider, auth } from '../firebase';
+import Link from 'next/link';
 
 const Login = () => {
 	const router = useRouter();
@@ -19,10 +20,11 @@ const Login = () => {
 			<UberLogo src='https://i.ibb.co/ZMhy8ws/uber-logo.png' />
 			<Title>Log in To Access Your Account</Title>
 			<LoginImage src='https://i.ibb.co/CsV9RYZ/login-image.png' />
-
-			<Button onClick={() => signInWithPopup(auth, provider)} type='submit'>
-				Signin with Google{' '}
-			</Button>
+			<Link src='/'>
+				<Button onClick={() => signInWithPopup(auth, provider)} type='submit'>
+					Signin with Google{' '}
+				</Button>
+			</Link>
 		</Wrapper>
 	);
 };
