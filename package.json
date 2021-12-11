@@ -1,24 +1,26 @@
 {
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "axios": "^0.24.0",
-    "firebase": "^9.6.1",
-    "formik": "^2.2.9",
-    "mapbox-gl": "^2.6.1",
-    "next": "latest",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "tailwind-styled-components": "^2.0.3",
-    "yup": "^0.32.11"
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.4.0",
-    "postcss": "^8.4.4",
-    "tailwindcss": "^2.2.19"
-  }
+	"name": "uber_nextjs",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build && next export",
+		"start": "next start -p $PORT"
+	},
+	"dependencies": {
+		"axios": "^0.24.0",
+		"firebase": "^9.6.1",
+		"formik": "^2.2.9",
+		"mapbox-gl": "^2.6.1",
+		"next": "latest",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2",
+		"tailwind-styled-components": "^2.0.3",
+		"yup": "^0.32.11"
+	},
+	"devDependencies": {
+		"autoprefixer": "^10.4.0",
+		"postcss": "^8.4.4",
+		"tailwindcss": "^2.2.19"
+	}
 }
