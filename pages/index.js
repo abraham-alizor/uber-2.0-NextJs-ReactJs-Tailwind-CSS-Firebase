@@ -3,15 +3,36 @@ import Map from '../components/Map';
 import HeaderComponent from '../components/Header';
 import Navbar from '../components/Navbar';
 import Link from 'next/link';
-
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { auth } from '../firebase';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 export default function Home() {
+	const [user, setUser] = useState(null);
+
+	const router = useRouter();
+
+	useEffect(() => {
+		return onAuthStateChanged(auth, (user) => {
+			if (user) {
+				setUser({
+					name: user.displayName,
+					photoUrl: user.photoURL,
+				});
+			} else {
+				setUser(null);
+				router.push('/login');
+			}
+		});
+	}, []);
+
 	return (
 		<>
-			<Navbar />
+			<Navbar displayName={user && user.name} photo={user && user.photoUrl} />
 			<Wrapper>
 				<Map />
 				<ActionItems>
-					<HeaderComponent />
+					<HeaderComponent displayName={user && user.name} photo={user && user.photoUrl} />
 					<ActionButtons>
 						<Link href='/search'>
 							<ActionButton>

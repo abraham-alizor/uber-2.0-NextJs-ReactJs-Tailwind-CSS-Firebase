@@ -2,7 +2,7 @@ import tw from 'tailwind-styled-components';
 import logo from './assets/logo.png';
 import Image from 'next/image';
 
-export default function Navbar() {
+export default function Navbar({ displayName, photo }) {
 	return (
 		<>
 			<NavConatiner>
@@ -15,7 +15,7 @@ export default function Navbar() {
 					</NavItems>
 					<NavItems>
 						<NavList>Help</NavList>
-						<NavList>Hi John</NavList>
+						<NavList className='text-white'>Hi, {displayName}</NavList>
 					</NavItems>
 				</NavItem>
 			</NavConatiner>
